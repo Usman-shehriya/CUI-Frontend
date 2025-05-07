@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
-import './Login.css'; // Import the CSS file
+import './Login.css';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -17,7 +17,7 @@ function Login() {
         password
       });
 
-      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('token', response.data.user.api_token);
       window.location.href = '/dashboard';
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed');
@@ -49,7 +49,6 @@ function Login() {
 
         <button type="submit">Login</button>
         <p>Don’t have an account? <a href="/register">Register here</a></p>
-
       </form>
     </div>
   );

@@ -27,12 +27,13 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
   }
   
   input {
     width: 100%;
     padding: 12px;
-    margin: 10px 0;
+    /* margin: 0px 0; */
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
@@ -53,7 +54,7 @@ body {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    width: 100%;
+    width: 80%;
     margin-top: 20px;
   }
   
@@ -67,4 +68,44 @@ body {
     font-size: 14px;
     text-align: center;
   }
+/* Register.css */
+
+/* Input and dropdown styling */
+form input,
+form select {
+  width: 300px;
+  padding: 10px;
+  margin: 10px 0;
+  display: block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+/* Dropdown specific styling */
+form select {
+  background-color: #fff;
+  cursor: pointer;
+}
+
+/* Button styling */
+form button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 16px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: #0056b3;
+}
+
+/* Error message */
+p {
+  color: red;
+  font-weight: bold;
+}
   

@@ -7,7 +7,8 @@ function Register() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('freelancer'); // Default role
+  const [role, setRole] = useState('freelancer'); 
+  const [rollNumber, setRollNumber] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
@@ -15,18 +16,26 @@ function Register() {
     e.preventDefault();
     setError('');
 
-    try {
-      await axios.post('http://localhost:8000/api/register', {
-        name,
-        email,
-        password,
-        role,
-      });
+    const userData = {
+      name,
+      email,
+      password,
+      role,
+    };
 
+  
+    if (role === 'freelancer') {
+      userData.roll_number = rollNumber;
+    }
+
+    try {
+      await axios.post('http://localhost:8000/api/register', userData);
       alert('Registration successful! Please login.');
-      navigate('/'); // Redirect to login
+      navigate('/'); 
     } catch (err) {
-      const msg = err.response?.data?.message || 'Registration failed.';
+      const msg = err.response?.data?.errors
+        ? Object.values(err.response.data.errors).join('\n')
+        : 'Registration failed.';
       setError(msg);
     }
   };
@@ -59,15 +68,33 @@ function Register() {
           required
         /><br />
 
-        <select value={role} onChange={(e) => setRole(e.target.value)} required>
+        <select
+          value={role}
+          onChange={(e) => setRole(e.target.value)}
+          required
+        >
           <option value="freelancer">Freelancer</option>
           <option value="client">Client</option>
         </select><br />
 
+        {role === 'freelancer' && (
+          <>
+            <input
+              type="text"
+              placeholder="COMSATS Roll Number (e.g. FA20-BCS-01)"
+              value={rollNumber}
+              onChange={(e) => setRollNumber(e.target.value)}
+              required
+            />
+            <br />
+          </>
+        )}
+
+
         <button type="submit">Register</button>
       </form>
 
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p style={{ color: 'red', whiteSpace: 'pre-line' }}>{error}</p>}
     </div>
   );
 }
